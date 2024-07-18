@@ -8,10 +8,10 @@ const db = require("./models/")
 const role = db.Role;
 
 //Dev mode
-/*db.sequelize.AsyncQueueError({force:true}).then(()=>{
-    initRole();
-    console.log("Drop and Sync DB")
-})*/
+// db.sequelize.sync({force:true}).then(()=>{
+//     initRole();
+//     console.log("Drop and Sync DB")
+// })
 
 const initRole = () => {
     role.create({ id:1, name:"user"});

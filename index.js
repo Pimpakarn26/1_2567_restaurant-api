@@ -7,6 +7,11 @@ const authRouter = require("./routers/auth.router");
 const db = require("./models/")
 const role = db.Role;
 
+
+const corsOption = {
+    origin: "http://localhost:5173",
+};
+
 //Dev mode
 /*db.sequelize.AsyncQueueError({force:true}).then(()=>{
     initRole();
@@ -20,6 +25,7 @@ const initRole = () => {
 };
 
 //use middleware
+app.use(cors(corsOption));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 

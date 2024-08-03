@@ -7,11 +7,16 @@ const authRouter = require("./routers/auth.router");
 const db = require("./models/")
 const role = db.Role;
 
+
+const corsOption = {
+    origin: "http://localhost:5173",
+};
+
 //Dev mode
-// db.sequelize.sync({force:true}).then(()=>{
-//     initRole();
-//     console.log("Drop and Sync DB")
-// })
+/*db.sequelize.AsyncQueueError({force:true}).then(()=>{
+    initRole();
+    console.log("Drop and Sync DB")
+})*/
 
 const initRole = () => {
     role.create({ id:1, name:"user"});
@@ -20,6 +25,7 @@ const initRole = () => {
 };
 
 //use middleware
+app.use(cors(corsOption));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 

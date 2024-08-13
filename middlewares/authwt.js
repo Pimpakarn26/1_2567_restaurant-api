@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const config = require("../config/auth.config");
 const db = require("../models");
+const { request } = require("express");
 const User = db.User;
 
 //Verify token
@@ -20,20 +21,19 @@ verifyToken = (req, res, next) => {
 };
 //isAdmin?
 isAdmin = (req, res, next) => {
-  User.findByPk(req.userId).then((user) => {
-    user.getRoles().then((roles) => {
-      for (let i = 0; i < roles.length; i++) {
-        if (roles[i].name === "admin") {
-          next();
-          return;
-        }
-      }
-      return res
-        .status(401)
-        .send({ message: "Unauthorized access, require Admin Role!" });
-    });
-  });
-};
+  //SELECT "roles","name" FROM "users", "roles", "uesr_roles", WHERE "users","id" = 5 and "users","id" = "user_roles","userId" and "roles","id" = "user_roles","roleId"
+  User.findByPk(req.userId).then((user)=>{
+      user.getRoles().then((roles)=>{
+          for (let i = 0; i< roles.lenght; i++){
+              if(roles[i].name === "admin" ){
+                  next();
+                  return;
+              }
+          }
+          return res.status(401).send({message:"Unauthorized access, require Admin Role!"})
+      })
+  }) 
+} 
 
 //isMod
 isMod = (req, res, next) => {

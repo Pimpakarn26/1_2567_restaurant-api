@@ -1,29 +1,23 @@
 const express = require("express");
 const router = express.Router();
-const restaurantController = require("../controllers/restaurant.controllers");
+const restaurantController = require("../controllers/restaurant.controller");
 const {authJwt} = require("../middlewares");
 
-//Create a restaurant
-//POST http://localhost:500/api/v1/restaurant
-router.post("/",[authJwt.verifyToken, authJwt.isModOrAdmin], restaurantController.create);
+//Create a restaurant Router
 
-//Get All restaurant
-router.get("/", restaurantController.getAll)
+//POST http://localhost:5000/api/v1/restaurants/
+router.post("/",[authJwt.verifyToken,authJwt.isModOrAdmin], restaurantController.create);
 
-//Get a restaurant by Id
-router.get("/:id", [authJwt.verifyToken], restaurantController.getByid);
+// Get all restaurant Router
+router.get("/",restaurantController.getAll);
 
-//update a restaurant
-router.put(
-    "/:id",
-    [authJwt.verifyToken, authJwt.isModOrAdmin],
-    restaurantController.update
-);
+// Get by ID restaurant Router
+router.get("/:id",[authJwt.verifyToken], restaurantController.getById);
 
-//delete a restaurant
-router.delete(
-    "/:id",
-    [authJwt.verifyToken, authJwt.isAdmin],
-    restaurantController.delete
-);
+// Update restaurant Router
+router.put("/:id",[authJwt.verifyToken,authJwt.isModOrAdmin], restaurantController.update);
+
+// Update restaurant Router
+router.delete("/:id",[authJwt.verifyToken,authJwt.isAdmin], restaurantController.delete);
+
 module.exports = router;

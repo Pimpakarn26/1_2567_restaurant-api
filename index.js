@@ -5,6 +5,7 @@ const PORT = process.env.PORT || 5000;
 const restaurantRouter = require("./routers/restaurant.router");
 const authRouter = require("./routers/auth.router");
 const db = require("./models/")
+const cors = require("cors");
 const role = db.Role;
 
 
@@ -26,18 +27,19 @@ const initRole = () => {
 
 //use middleware
 app.use(cors(corsOption));
+
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 //use router
-app.use("/api/v1/restaurants", restaurantRouter);
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/restaurants", restaurantRouter);
 
 
-app.get('/', (req,res) => {
+app.get("/", (req,res) => {
     res.send('<h1>Hello Restaurant API</h1>');
 });
 
-app.listen(PORT, ()=>{
-    console.log("Listening to http://localhost:"+PORT);
+app.listen(PORT, () => {
+    console.log("Listening to http://localhost:" + PORT);
 });

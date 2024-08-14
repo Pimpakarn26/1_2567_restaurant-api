@@ -1,5 +1,6 @@
 const User = require("../models/user.model");
 const Role = require("../models/role.model");
+const { Op } = require("sequelize");
 
 checkDuplicateUsernameOrEmail = async (req, res, next) =>{
 await User.findOne({
@@ -47,6 +48,7 @@ checkRolsExisted = async (req, res, next)=>{
     }
 };
 
+// verify sign-up
 const verifySignUp = {
     checkRolsExisted,
     checkDuplicateUsernameOrEmail,

@@ -4,7 +4,6 @@ const authController = require("../controllers/auth.controller");
 const { verifySignUp } = require("../middlewares");
 
 // CORS middleware
-//POST http://localhost:5000/api/v1/auth/singup
 router.use((req, res, next) => {
   res.header(
     "Access-Control-Allow-Headers",

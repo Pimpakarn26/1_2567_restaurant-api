@@ -1,3 +1,3 @@
 module.exports ={
-    "secret":"Pimpakarn-secret-key"
-};
+    "secret":"Pimpakarn_secret-key"
+}

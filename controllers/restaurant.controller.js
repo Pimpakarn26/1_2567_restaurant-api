@@ -1,6 +1,7 @@
 const Restaurant = require("../models/restaurant.model");
 
 // Create and Save a new restaurant
+// สร้างและบันทึกข้อมูลร้านอาหารใหม่
 exports.create = async (req, res) => {
   const { name, type, imageUrl } = req.body;
   // Validate data
@@ -9,14 +10,17 @@ exports.create = async (req, res) => {
       message: "Name, Type or ImageUrl can't be empty!",
     });
   }
+    // ตรวจสอบว่ามีร้านอาหารที่มีชื่อเดียวกันอยู่แล้วหรือไม่
   await Restaurant.findOne({ where: { name: name } }).then((restaurant) => {
     if (restaurant) {
       res.status(400).send({
         message: "Restaurant already exists!",
       });
-      return;
+      return;//ออกจากฟังก์ชันหากข้อมูลไม่ครบถ้วน
     }
+
     // Create a new Restaurant
+   // สร้างร้านอาหารใหม่
     const newRestaurant = {
       name: name,
       type: type,
@@ -37,6 +41,7 @@ exports.create = async (req, res) => {
 };
 
 // Get all restaurant
+// ดึงข้อมูลร้านอาหารทั้งหมด
 exports.getAll = async (req, res) => {
   await Restaurant.findAll()
     .then((data) => {
@@ -52,6 +57,7 @@ exports.getAll = async (req, res) => {
 };
 
 // Get by ID restaurant
+// ดึงข้อมูลร้านอาหารตาม ID
 exports.getById = async (req, res) => {
   const id = req.params.id;
   await Restaurant.findByPk(id)

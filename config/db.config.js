@@ -1,4 +1,5 @@
 require("dotenv").config({ path: "../.env" });
+console.log(process.env.dialect);
 
 module.exports = {
   HOST: process.env.HOST,
